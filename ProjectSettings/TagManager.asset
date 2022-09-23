@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - BasicZombie
+  - FastZombie
+  - BasicZombie2
   layers:
   - Default
   - TransparentFX
