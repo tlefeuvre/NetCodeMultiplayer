@@ -8,6 +8,7 @@ public class ZombiController : MonoBehaviour
     // Start is called before the first frame update
     GameObject player;
     Vector3 playerPosition;
+    public NavMeshSurface[] surfaces;
 
     public NavMeshAgent agent;
     public 
@@ -27,6 +28,11 @@ public class ZombiController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Space))
+            for (int i = 0; i < surfaces.Length; i++)
+            {
+                surfaces[i].BuildNavMesh();
+            }
         getPlayerPosition();
         if(agent)
             agent.SetDestination(playerPosition);
