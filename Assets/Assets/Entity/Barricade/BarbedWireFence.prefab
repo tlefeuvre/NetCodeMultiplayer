@@ -158,3 +158,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 0
   currentHealth: 0
+  GhostBarricade: {fileID: 2336220605751542988, guid: b57a700f03a64d540b7138dd4de90721,
+    type: 3}
