@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class ZombieSpawner : MonoBehaviour
+public class ZombieSpawner : NetworkBehaviour
 {
     // Start is called before the first frame update
     public GameObject[] zombies;
     private float nextActionTime = 0.0f;
     public float period = 3f;
     private int[] phasesTimer = new int[5] { 5, 4, 3, 2, 1 };
+    private bool ok = false;
     void Start()
     {
-        InvokeRepeating("Spawn", 2.0f, 6f);
-        StartCoroutine(StopFirstPhase());
+        if (IsHost)
+        {
+            ok = true;
+
+            InvokeRepeating("Spawn", 2.0f, 6f);
+            StartCoroutine(StopFirstPhase());
+        }
 
     }
     IEnumerator StopFirstPhase()
@@ -72,16 +79,27 @@ public class ZombieSpawner : MonoBehaviour
     }
     private void Spawn()
     {
+       
         int randomZombieId = Random.Range(0, zombies.Length);
 
         int rand = Random.Range(1, zombies[randomZombieId].transform.childCount);
 
+            Debug.Log("SPAWNNNN!!");
+
+        Vector3 pos = new Vector3(0f, -1.0f, 0f);
         GameObject newObject = Instantiate(zombies[randomZombieId]) as GameObject;
-        newObject.transform.GetChild(rand).gameObject.SetActive(true);
+        //newObject.transform.GetChild(rand).gameObject.SetActive(true);
+        newObject.GetComponent<NetworkObject>().Spawn();
     }
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-       
+        if (IsHost && !ok)
+        {
+            ok = true;
+            InvokeRepeating("Spawn", 2.0f, 6f);
+            StartCoroutine(StopFirstPhase());
+            Debug.Log("is host!!");
+        }
     }
+
 }

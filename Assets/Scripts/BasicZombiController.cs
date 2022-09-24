@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.Netcode;
 
-public class BasicZombiController : MonoBehaviour
+public class BasicZombiController : NetworkBehaviour
 {
     // Start is called before the first frame update
-    GameObject player;
-    Vector3 playerPosition;
+    public GameObject player;
+    public Vector3 playerPosition;
     public NavMeshSurface[] surfaces;
 
     public NavMeshAgent agent;
@@ -15,8 +16,13 @@ public class BasicZombiController : MonoBehaviour
     private bool isAnimationEnabled = false;
     private float startAnimationRandom = 0;
 
+    public float currentHealth=100;
+    public float maxHealth = 100;
+
     void Start()
     {
+        currentHealth = maxHealth;
+
         startAnimationRandom = Random.Range(0, 5.0f);
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -49,6 +55,19 @@ public class BasicZombiController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentHealth <= 0 && IsHost)
+        {
+            NetworkObject m_SpawnedNetworkObject = this.GetComponent<NetworkObject>();
+            m_SpawnedNetworkObject.Despawn();
+        }
+       
+        if (!player)
+        {
+            Debug.Log("search player");
+            player = GameObject.FindGameObjectWithTag("Player");
+
+        }
+
         if (isAnimationEnabled)
         {
             if(gameObject.tag == "BasicZombie")
@@ -61,6 +80,7 @@ public class BasicZombiController : MonoBehaviour
                 animator.SetBool("isWalking", true);
 
             //animator.Play("ZombieWalk");
+            Debug.Log("zombie avance");
             getPlayerPosition();
             if (agent)
                 agent.SetDestination(playerPosition);

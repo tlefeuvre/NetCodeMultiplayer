@@ -4,7 +4,8 @@ using UnityEngine;
 using Unity.Netcode;
 public class PlayerNetworkManager : MonoBehaviour
 {
-
+   
+ 
     void OnGUI()
     {
         GUILayout.BeginArea(new Rect(10, 10, 300, 300));
@@ -41,18 +42,23 @@ public class PlayerNetworkManager : MonoBehaviour
 
     static void SubmitNewPosition()
     {
+        Vector3 test = new Vector3(0, 0, 0);
         if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Move" : "Request Position Change"))
         {
             if (NetworkManager.Singleton.IsServer && !NetworkManager.Singleton.IsClient)
             {
-                foreach (ulong uid in NetworkManager.Singleton.ConnectedClientsIds)
-                    NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(uid).GetComponent<PlayerNetwork>().Move();
+                Debug.Log("je suis host et je vais bouger");
+
+                //foreach (ulong uid in NetworkManager.Singleton.ConnectedClientsIds)
+                    //NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(uid).GetComponent<PlayerNetwork>().Move(test);
             }
             else
             {
                 var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
                 var player = playerObject.GetComponent<PlayerNetwork>();
-                player.Move();
+                Debug.Log("je suis client et je vais bouger");
+
+                //player.Move(test);
             }
         }
     }

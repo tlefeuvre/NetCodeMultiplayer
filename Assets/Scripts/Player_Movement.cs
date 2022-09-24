@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class Player_Movement : MonoBehaviour
+public class Player_Movement : NetworkBehaviour
 {
 
     Vector3 position;
@@ -18,7 +19,18 @@ public class Player_Movement : MonoBehaviour
         jumpState = 0;
         animator = GetComponentInChildren<Animator>();
     }
-
+    /*public override void OnNetworkSpawn()
+    {
+        if (!IsOwner)
+        {
+            Destroy(transform.GetComponent<Player_Movement>());
+        }
+    }*/
+    /*public override void OnNetworkSpawn()
+    {
+        if (!IsOwner)
+            Destroy(this);
+    }*/
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -27,6 +39,7 @@ public class Player_Movement : MonoBehaviour
 
         if (Input.GetKey("z"))
         {
+            Debug.Log("zzzzz");
             animator.SetBool("IsWalking", true);
 
             position.z += 0.08f;
