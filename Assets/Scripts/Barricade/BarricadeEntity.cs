@@ -34,12 +34,6 @@ public class BarricadeEntity : Entity
                 StartCoroutine("getHit");
             }
         }
-
-        if (currentHealth <= 0) //si on meurt, on émet le son et on lance la coroutine de mort
-        {
-            Instantiate(GhostBarricade, new Vector3(0, 0, 0), Quaternion.identity);
-            Destroy(gameObject);
-        }
     }
     IEnumerator getHit() //La coroutine sert à désactiver partiellement le monstre pour jouer le son de mort avant de le supprimer pour de bons à la fin
     {

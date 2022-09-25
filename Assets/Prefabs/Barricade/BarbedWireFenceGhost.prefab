@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2058118068159877587}
   - component: {fileID: 4281533683794142489}
   - component: {fileID: 3218531748579278091}
+  - component: {fileID: 3591637647965929215}
   m_Layer: 0
   m_Name: BarbedWireFenceGhost
   m_TagString: Untagged
@@ -97,3 +98,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.5478706, y: 1.4882588, z: 0.75811934}
   m_Center: {x: 0.06486511, y: 0.5084717, z: 0.011677623}
+--- !u!114 &3591637647965929215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2336220605751542988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eedd7a7fcb33cdb4ba7c5572bf62fab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barricade: {fileID: 2336220605751542988, guid: 4584fa840e9fbd14aa6218fcdea34370,
+    type: 3}
