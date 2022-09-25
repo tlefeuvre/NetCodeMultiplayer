@@ -1,21 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class TrapActivation : MonoBehaviour
+public class TrapActivation : NetworkBehaviour
 {
     public GameObject trap;
-    private Animator animator;
+    public Animator animator;
     private bool flagIsActive = false;
     private bool IsOnCollider = false;
     private void Start()
     {
-        animator = trap.GetComponent<Animator>();
+
     }
     private void Update()
     {
+        if (!animator && IsHost) 
+        {
+            animator = trap.GetComponent<Animator>();
+        }
         if (IsOnCollider)
         {
+            Debug.Log("DANS COLLIGER");
+            Debug.Log(flagIsActive);
+
             if (Input.GetKeyDown(KeyCode.E) && flagIsActive == false)
             {
                 Debug.Log("Trap Activation");
