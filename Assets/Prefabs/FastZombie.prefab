@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 7916279344543242471}
   - component: {fileID: -8714220543929997078}
   - component: {fileID: 5837458089835681540}
+  - component: {fileID: 4711800870885722787}
   m_Layer: 6
   m_Name: FastZombie
   m_TagString: FastZombie
@@ -331,6 +332,19 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0, w: 0}
   _netHealth:
     m_InternalValue: 0
+--- !u!65 &4711800870885722787
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7916279345943126251}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4302063, y: 1.795368, z: 0.33831406}
+  m_Center: {x: -0.013128281, y: 0.9026822, z: -0.014293671}
 --- !u!1 &7916279345943126305
 GameObject:
   m_ObjectHideFlags: 0
