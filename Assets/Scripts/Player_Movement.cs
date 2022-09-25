@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using System.Net.Sockets;
 
 public class Player_Movement : NetworkBehaviour
 {
@@ -13,65 +14,52 @@ public class Player_Movement : NetworkBehaviour
 
     Animator animator;
 
+    Rigidbody m_Rigidbody;
+
+    [SerializeField] Camera cam;
+
+    [SerializeField] float Speed = 5;
+    [SerializeField] float mouseSensitivityX = 6;
+    [SerializeField] float mouseSensitivityY = 6;
+
     // Start is called before the first frame update
     void Start()
     {
         jumpState = 0;
+        Speed = 10.0f;
+
         animator = GetComponentInChildren<Animator>();
+        m_Rigidbody = GetComponent<Rigidbody>();
     }
-    /*public override void OnNetworkSpawn()
-    {
-        if (!IsOwner)
-        {
-            Destroy(transform.GetComponent<Player_Movement>());
-        }
-    }*/
-    /*public override void OnNetworkSpawn()
-    {
-        if (!IsOwner)
-            Destroy(this);
-    }*/
+    
     // Update is called once per frame
     void FixedUpdate()
     {
-        //zqsd
-        position = transform.position;
+        float xMov = Input.GetAxisRaw("Horizontal");
+        float zMov = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey("z"))
-        {
-            Debug.Log("zzzzz");
-            animator.SetBool("IsWalking", true);
+        Vector3 moveHorizontal = transform.right * xMov;
+        Vector3 moveVertical = transform.forward * zMov;
 
-            position.z += 0.08f;
-            transform.position = position;
-        }
-        if (Input.GetKey("q"))
-        {
-            animator.SetBool("IsWalking", true);
+        Vector3 velocity = (moveHorizontal + moveVertical).normalized * Speed;
 
-            position.x -= 0.08f;
-            transform.position = position;
-        }
-        if (Input.GetKey("s"))
-        {
-            animator.SetBool("IsWalking", true);
+        movePlayer(velocity);
 
-            position.z -= 0.08f;
-            transform.position = position;
-        }
-        if (Input.GetKey("d"))
-        {
-            animator.SetBool("IsWalking", true);
+        //mouse managment (left/right)
+        float yRot = Input.GetAxisRaw("Mouse X");
+        Vector3 rotation = new Vector3(0, yRot, 0) * mouseSensitivityX;
+        rotatePlayer(rotation);
 
-            position.x += 0.08f;
-            transform.position = position;
-        }
-        else
-        {
-            animator.SetBool("IsWalking", false);
-        }
+        //mouse managment (up/down)
+        float xRot = Input.GetAxisRaw("Mouse Y");
+        Vector3 cameraRotation = new Vector3(xRot, 0, 0) * mouseSensitivityY;
+        rotateCamera(cameraRotation);
+
+
 
         //jump
+        position = transform.position;
+
         if (Input.GetKeyDown("space") && jumpState == 0 && onground == true)
         {
             jumpState = 1;
@@ -79,17 +67,34 @@ public class Player_Movement : NetworkBehaviour
 
         if (jumpState > 0)
         {
-            position.y += 0.11f;
+            position.y += Time.fixedDeltaTime;
             transform.position = position;
 
-            jumpState -= 0.07f;
+            jumpState -= Time.fixedDeltaTime;
             if (jumpState < 0)
             {
                 jumpState = 0;
             }
         }
+    }
 
 
+    private void movePlayer(Vector3 _velocity)
+    {
+        if(_velocity != Vector3.zero)
+        {
+            m_Rigidbody.MovePosition(m_Rigidbody.position + _velocity * Time.fixedDeltaTime);
+        }
+    }
+
+    private void rotatePlayer(Vector3 _rotation)
+    {
+        m_Rigidbody.MoveRotation(m_Rigidbody.rotation * Quaternion.Euler(_rotation));
+    }
+
+    private void rotateCamera(Vector3 _cameraRotation)
+    {
+        cam.transform.Rotate(-_cameraRotation);
     }
 
     private void OnTriggerEnter(Collider other)
