@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2870163205875619479}
   - component: {fileID: 5261891188151971960}
   - component: {fileID: 9067496987538782867}
+  - component: {fileID: 1859090382848625688}
   m_Layer: 6
   m_Name: BasicZombie2
   m_TagString: BasicZombie2
@@ -132,6 +133,19 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0, w: 0}
   _netHealth:
     m_InternalValue: 0
+--- !u!65 &1859090382848625688
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2870163206627421851}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.35515785, y: 1.8520931, z: 0.38709068}
+  m_Center: {x: 0.015065193, y: 0.9503557, z: -0.0030469894}
 --- !u!1 &2870163206627421937
 GameObject:
   m_ObjectHideFlags: 0
