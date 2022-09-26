@@ -37,6 +37,7 @@ public class TrapActivation : NetworkBehaviour
             textInfo.SetActive(false);
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player") //si on percute un joueur, le monstre meurt

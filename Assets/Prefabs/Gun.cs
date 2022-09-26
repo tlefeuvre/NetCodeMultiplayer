@@ -33,7 +33,7 @@ public class Gun : NetworkBehaviour
         if (IsOwner)
         {
             MyInput();
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 Cursor.visible = !Cursor.visible;
             }

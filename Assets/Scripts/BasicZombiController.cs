@@ -52,15 +52,37 @@ public class BasicZombiController : NetworkBehaviour
             playerPosition = player.transform.position;
 
     }
+    IEnumerator DestroyZombie()
+    {
+        // suspend execution for 10 seconds
+        yield return new WaitForSeconds(5);
+        NetworkObject m_SpawnedNetworkObject = this.GetComponent<NetworkObject>();
+        m_SpawnedNetworkObject.Despawn();
+
+    }
     // Update is called once per frame
     void Update()
     {
+        if(currentHealth >0)
+        {
+            gameObject.GetComponent<Animator>().enabled = true;
+
+        }
         if (currentHealth <= 0 && IsHost)
         {
-            NetworkObject m_SpawnedNetworkObject = this.GetComponent<NetworkObject>();
-            m_SpawnedNetworkObject.Despawn();
+            gameObject.GetComponent<Collider>().isTrigger = true;
+            gameObject.GetComponent<Animator>().enabled = false;
+            StartCoroutine(DestroyZombie());
+           
         }
-       
+        if (currentHealth <= 0 && !IsHost)
+        {
+            gameObject.GetComponent<Collider>().isTrigger = true;
+
+            gameObject.GetComponent<Animator>().enabled = false;
+
+        }
+
         if (!player)
         {
             Debug.Log("search player");
@@ -84,6 +106,9 @@ public class BasicZombiController : NetworkBehaviour
             getPlayerPosition();
             if (agent && currentHealth >0)
                 agent.SetDestination(playerPosition);
+            if(agent && currentHealth <0)
+                agent.SetDestination(transform.position);
+
 
 
         }
