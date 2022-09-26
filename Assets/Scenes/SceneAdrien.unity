@@ -147,12 +147,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5435587399090438688}
   m_PrefabAsset: {fileID: 0}
---- !u!20 &251092712 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 5435587398920214209, guid: d5394277cba940242a76243c94a60451,
-    type: 3}
-  m_PrefabInstance: {fileID: 5435587399090438688}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &288173698 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5439867296992696309, guid: d5394277cba940242a76243c94a60451,
@@ -180,6 +174,12 @@ Transform:
 --- !u!4 &336516703 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5431452511862214547, guid: d5394277cba940242a76243c94a60451,
+    type: 3}
+  m_PrefabInstance: {fileID: 5435587399090438688}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &349690362 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5435587398920214271, guid: d5394277cba940242a76243c94a60451,
     type: 3}
   m_PrefabInstance: {fileID: 5435587399090438688}
   m_PrefabAsset: {fileID: 0}
@@ -910,14 +910,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'Hips'\n\tTransform 'Spine1'\n\tTransform 'LeftHandMiddle2'\n\tTransform
-    'Neck'\n\tTransform 'LeftHandThumb1'\n\tTransform 'LeftHandRing2'\n\tTransform
-    'RightHandIndex3'\n\tTransform 'LeftHandRing3'\n\tTransform 'RightHandMiddle1'\n\tTransform
-    'LeftUpLeg'\n\tand more ...\n\tFrom animation clip 'Idle'\n\tFrom animation clip
-    'mixamo.com'\n\tFrom animation clip 'mixamo.com'\n\tFrom animation clip 'Rifle
-    Run'\n\tFrom animation clip 'mixamo.com'\n\tFrom animation clip 'Run Backwards'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -1225,7 +1218,7 @@ PrefabInstance:
         type: 3}
       propertyPath: cam
       value: 
-      objectReference: {fileID: 251092712}
+      objectReference: {fileID: 349690362}
     - target: {fileID: -2791019668081785878, guid: d5394277cba940242a76243c94a60451,
         type: 3}
       propertyPath: mouseSensitivity
@@ -1255,6 +1248,31 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1060491471
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435587398920214210, guid: d5394277cba940242a76243c94a60451,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.8500001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435587398920214210, guid: d5394277cba940242a76243c94a60451,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.7700001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435587398920214210, guid: d5394277cba940242a76243c94a60451,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9994832
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435587398920214210, guid: d5394277cba940242a76243c94a60451,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.03214463
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435587398920214210, guid: d5394277cba940242a76243c94a60451,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 3.684
       objectReference: {fileID: 0}
     - target: {fileID: 5435587399613677332, guid: d5394277cba940242a76243c94a60451,
         type: 3}
