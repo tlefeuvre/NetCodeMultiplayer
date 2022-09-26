@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class quitButton : MonoBehaviour
 {
@@ -14,5 +15,9 @@ public class quitButton : MonoBehaviour
 #else
          Application.Quit();
 #endif
+    }
+    public void doReturnMenu()
+    {
+        SceneManager.LoadScene(1);
     }
 }
