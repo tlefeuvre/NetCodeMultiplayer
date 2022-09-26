@@ -248,7 +248,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &544856355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +281,7 @@ MonoBehaviour:
   Speed: 5
   mouseSensitivityX: 6
   mouseSensitivityY: 6
+  jumpForce: 6
 --- !u!4 &544856357
 Transform:
   m_ObjectHideFlags: 0
@@ -806,7 +807,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948828804}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
   m_Name: 
@@ -882,7 +883,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948828804}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fff0960ef4ea6e04eac66b4a7fd2189d, type: 3}
   m_Name: 
@@ -902,14 +903,21 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948828804}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: edd2301b0bd9a87468ca182fbe8762f1, type: 2}
+  m_Avatar: {fileID: 9000000, guid: 087c20687f22c9a4f92b63b8e70966b4, type: 3}
+  m_Controller: {fileID: 9100000, guid: aa1cdb123477c6145b7711800766ef32, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'Hips'\n\tTransform 'Spine1'\n\tTransform 'LeftHandMiddle2'\n\tTransform
+    'Neck'\n\tTransform 'LeftHandThumb1'\n\tTransform 'LeftHandRing2'\n\tTransform
+    'RightHandIndex3'\n\tTransform 'LeftHandRing3'\n\tTransform 'RightHandMiddle1'\n\tTransform
+    'LeftUpLeg'\n\tand more ...\n\tFrom animation clip 'Idle'\n\tFrom animation clip
+    'mixamo.com'\n\tFrom animation clip 'mixamo.com'\n\tFrom animation clip 'Rifle
+    Run'\n\tFrom animation clip 'mixamo.com'\n\tFrom animation clip 'Run Backwards'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -1147,7 +1155,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1998966295}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31076fe4318f26c4d95686da244e45ec, type: 3}
   m_Name: 
@@ -1156,6 +1164,7 @@ MonoBehaviour:
   Speed: 0
   mouseSensitivityX: 6
   mouseSensitivityY: 6
+  jumpForce: 6
 --- !u!135 &1998966303
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1222,6 +1231,11 @@ PrefabInstance:
       propertyPath: mouseSensitivity
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: -490190936981848302, guid: d5394277cba940242a76243c94a60451,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 297471527795466816, guid: d5394277cba940242a76243c94a60451,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1242,16 +1256,6 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 1060491471
       objectReference: {fileID: 0}
-    - target: {fileID: 5348993362824117789, guid: d5394277cba940242a76243c94a60451,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 3d5eb8d6c626674468be0c512028d0c5, type: 2}
-    - target: {fileID: 5348993362824117789, guid: d5394277cba940242a76243c94a60451,
-        type: 3}
-      propertyPath: m_WarningMessage
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5435587399613677332, guid: d5394277cba940242a76243c94a60451,
         type: 3}
       propertyPath: m_Name
@@ -1260,7 +1264,7 @@ PrefabInstance:
     - target: {fileID: 5435587399613677332, guid: d5394277cba940242a76243c94a60451,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5435587399613677334, guid: d5394277cba940242a76243c94a60451,
         type: 3}

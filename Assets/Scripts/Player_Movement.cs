@@ -21,6 +21,7 @@ public class Player_Movement : NetworkBehaviour
     [SerializeField] float Speed = 5;
     [SerializeField] float mouseSensitivityX = 6;
     [SerializeField] float mouseSensitivityY = 6;
+    [SerializeField] float jumpForce = 6;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,7 @@ public class Player_Movement : NetworkBehaviour
         jumpState = 0;
         Speed = 10.0f;
 
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
     }
     
@@ -53,21 +54,26 @@ public class Player_Movement : NetworkBehaviour
         //mouse managment (up/down)
         float xRot = Input.GetAxisRaw("Mouse Y");
         Vector3 cameraRotation = new Vector3(xRot, 0, 0) * mouseSensitivityY;
-        rotateCamera(cameraRotation);
+        if (cam.transform.rotation.x >= -90 && cam.transform.rotation.x <= 90)
+        {
+            rotateCamera(cameraRotation);
+        }
 
+        //gestion des animations
+        AnimationsManagement();
 
 
         //jump
         position = transform.position;
 
-        if (Input.GetKeyDown("space") && jumpState == 0 && onground == true)
+        if (Input.GetKeyDown("space") && jumpState == 0)
         {
             jumpState = 1;
         }
 
         if (jumpState > 0)
         {
-            position.y += Time.fixedDeltaTime;
+            position.y += Time.fixedDeltaTime * jumpForce;
             transform.position = position;
 
             jumpState -= Time.fixedDeltaTime;
@@ -94,7 +100,10 @@ public class Player_Movement : NetworkBehaviour
 
     private void rotateCamera(Vector3 _cameraRotation)
     {
-        cam.transform.Rotate(-_cameraRotation);
+        if(cam.transform.rotation.x > -90 && cam.transform.rotation.x < 90)
+        {
+            cam.transform.Rotate(-_cameraRotation);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -102,6 +111,35 @@ public class Player_Movement : NetworkBehaviour
         if (other.tag == "Ground")
         {
             onground = true;
+        }
+    }
+
+    private void AnimationsManagement()
+    {
+        Debug.Log("la go la c'est ptetre une fille bien");
+        if (Input.GetKey("z"))
+        {
+            animator.SetBool("IsIdle", false);
+            animator.SetBool("IsWalkingForward", true);
+        }
+        else
+        {
+            animator.SetBool("IsWalkingForward", false);
+        }
+        if (Input.GetKey("s"))
+        {
+            animator.SetBool("IsIdle", false);
+            animator.SetBool("IsWalkingBackward", true);
+        }
+        else
+        {
+            animator.SetBool("IsWalkingBackward", false);
+        }
+        if (!Input.GetKey("z") && !Input.GetKey("s"))
+        {
+            animator.SetBool("IsIdle", true);
+            animator.SetBool("IsWalkingBackward", false);
+            animator.SetBool("IsWalkingForward", false);
         }
     }
 }
