@@ -516,6 +516,7 @@ GameObject:
   - component: {fileID: -2791019668081785878}
   - component: {fileID: -490190936981848302}
   - component: {fileID: 4645131230442324599}
+  - component: {fileID: 1448661915257567869}
   m_Layer: 0
   m_Name: Player1 1
   m_TagString: Player
@@ -658,7 +659,28 @@ MonoBehaviour:
   allowButtonHold: 1
   fpsCamera: {fileID: 5435587398920214209}
   attackPoint: {fileID: 8709365063577413170}
+  aimDirection: {x: 0, y: 0, z: 0}
   allowInvoke: 1
+--- !u!95 &1448661915257567869
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5435587399613677332}
+  m_Enabled: 0
+  m_Avatar: {fileID: 9000000, guid: 535511bb156e7f54f83f305d96a1c4ce, type: 3}
+  m_Controller: {fileID: 9100000, guid: aa1cdb123477c6145b7711800766ef32, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5935929589813688863
 GameObject:
   m_ObjectHideFlags: 0
