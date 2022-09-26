@@ -15,24 +15,39 @@ public class TrapActivation : NetworkBehaviour
     }
     private void Update()
     {
-        if (!animator && IsHost) 
+        if (IsOwner)
         {
-            animator = trap.GetComponent<Animator>();
-        }
-        if (IsOnCollider)
-        {
-            Debug.Log("DANS COLLIGER");
-            Debug.Log(flagIsActive);
-
-            if (Input.GetKeyDown(KeyCode.E) && flagIsActive == false)
+            if (!animator && IsHost)
             {
-                Debug.Log("Trap Activation");
-                animator.enabled = true;
-                StartCoroutine("getActive");
+                animator = trap.GetComponent<Animator>();
+            }
+            if (IsOnCollider)
+            {
+                Debug.Log("DANS COLLIGER");
+                Debug.Log(flagIsActive);
+
+                if (Input.GetKeyDown(KeyCode.E) && flagIsActive == false)
+                {
+                    Debug.Log("Trap Activation");
+                    if (IsHost)
+                    {
+                        animator.enabled = true;
+                        StartCoroutine("getActive");
+
+                    }
+                    else
+                        SubmitRequestTrapServerRpc();
+                }
             }
         }
+        
     }
-
+    [ServerRpc]
+    private void SubmitRequestTrapServerRpc(ServerRpcParams rpcParams = default)
+    {
+        animator.enabled = true;
+        StartCoroutine("getActive");
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player") //si on percute un joueur, le monstre meurt

@@ -24,7 +24,7 @@ public class TrapSpawner : NetworkBehaviour
         }
 
     }
-
+  
     // Update is called once per frame
     void Update()
     {
@@ -44,5 +44,6 @@ public class TrapSpawner : NetworkBehaviour
             newObject.GetComponent<NetworkObject>().Spawn();
             isOk = true;
         }
+       
     }
 }

@@ -9,7 +9,15 @@ public class BulletNetwork : NetworkBehaviour
     public NetworkVariable<Quaternion> _netRot = new(writePerm: NetworkVariableWritePermission.Owner);
     private void Start()
     {
-       //StartCoroutine(DestroyBullet());
+        if (IsOwner)
+        {
+            if (IsHost)
+                StartCoroutine(DestroyBullet());
+            else
+                SubmitRequestDestroyTimerServerRpc();
+        }
+     
+
 
     }
     private void Update()
@@ -25,26 +33,48 @@ public class BulletNetwork : NetworkBehaviour
             transform.rotation = _netRot.Value;
         }
     }
-    /*IEnumerator DestroyBullet()
+    IEnumerator DestroyBullet()
     {
         // suspend execution for 10 seconds
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         NetworkObject m_SpawnedNetworkObject = this.GetComponent<NetworkObject>();
         m_SpawnedNetworkObject.Despawn();
         Destroy(this);
 
-    }*/
+    }
+
+    [ServerRpc]
+    private void SubmitRequestDestroyTimerServerRpc(ServerRpcParams rpcParams = default)
+    {
+        StartCoroutine(DestroyBullet());
+
+    }
+
+    [ServerRpc]
+    private void SubmitRequestDestroyServerRpc(ServerRpcParams rpcParams = default)
+    {
+        //StartCoroutine(DestroyBullmet());
+        NetworkObject m_SpawnedNetworkObject = this.GetComponent<NetworkObject>();
+        m_SpawnedNetworkObject.Despawn();
+        Destroy(gameObject);
+    }
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("JE TOUCHE QQCHOSE");
-        if (IsHost)
+        if (IsOwner)
         {
-            //StartCoroutine(DestroyBullmet());
-            NetworkObject m_SpawnedNetworkObject = this.GetComponent<NetworkObject>();
-            m_SpawnedNetworkObject.Despawn();
-            Destroy(this);
+            if (IsHost)
+            {
+                //StartCoroutine(DestroyBullmet());
+                NetworkObject m_SpawnedNetworkObject = this.GetComponent<NetworkObject>();
+                //m_SpawnedNetworkObject.Despawn();
+                Destroy(gameObject);
 
+            }
+            else
+                SubmitRequestDestroyServerRpc();
         }
+        
     }
    
 }

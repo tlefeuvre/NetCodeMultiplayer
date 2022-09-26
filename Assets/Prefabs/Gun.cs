@@ -19,11 +19,14 @@ public class Gun : NetworkBehaviour
     public Camera fpsCamera;
     public Transform attackPoint;
 
+    public Vector3 aimDirection;
     public bool allowInvoke = true;
     private void Awake()
     {
-        bulletsLeft = magazineSize;
-        readyToShoot = true;
+       
+            bulletsLeft = magazineSize;
+            readyToShoot = true;
+
     }
     private void Update()
     {
@@ -53,31 +56,76 @@ public class Gun : NetworkBehaviour
         if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
         {
             bulletsShot = 0;
-            if(IsHost)
-                Shoot();
+            readyToShoot = false;
+            bulletsLeft--;
+            bulletsShot++;
+
+            Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+            Vector3 targetPoint;
+            if (Physics.Raycast(ray, out hit))
+            {
+                Debug.Log("RAYCAST yes");
+                targetPoint = hit.point;
+
+            }
+            else
+            {
+                Debug.Log("RAYCAST NO");
+                targetPoint = ray.GetPoint(75);
+
+            }
+
+            Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
+            aimDirection = directionWithoutSpread;
+            float x = Random.Range(-spread, spread);
+            float y = Random.Range(-spread, spread);
+
+            if (IsHost)
+            {
+                Debug.Log("shoot");
+
+                Shoot(directionWithoutSpread);
+                if (allowInvoke)
+                {
+                    Invoke("ResetShot", timeBetweenShooting);
+                    allowInvoke = false;
+                }
+                if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
+                {
+                    Invoke("Shoot", timeBetweenShooting);
+                }
+            }
+            else {
+                Debug.Log("submit request  shoot");
+
+                SubmitRequestShotServerRpc(directionWithoutSpread);
+                if (allowInvoke)
+                {
+                    Invoke("ResetShot", timeBetweenShooting);
+                    allowInvoke = false;
+                }
+                if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
+                {
+                    Invoke("Shoot", timeBetweenShooting);
+                }
+            }
         }
 
     }
-    private void Shoot()
+    [ServerRpc]
+    private void SubmitRequestShotServerRpc(Vector3 directionWithoutSpread, ServerRpcParams rpcParams = default)
     {
-        readyToShoot = false;
-        bulletsLeft--;
-        bulletsShot++;
+        Debug.Log("in submit request");
 
-        Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f,0.5f,0));
-        RaycastHit hit;
-        Vector3 targetPoint;
-        if (Physics.Raycast(ray, out hit))
-            targetPoint = hit.point;
-        else
-            targetPoint = ray.GetPoint(75);
+        Shoot(directionWithoutSpread);
+    }
+    private void Shoot(Vector3 directionWithoutSpread)
+    {
+        Debug.Log("Shhot");
 
-        Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
+       
 
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
-
-        Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x,y,0);
 
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
         currentBullet.GetComponent<NetworkObject>().Spawn();
@@ -88,15 +136,7 @@ public class Gun : NetworkBehaviour
         currentBullet.GetComponent<Rigidbody>().AddForce(fpsCamera.transform.up * upwardForce, ForceMode.Impulse);
 
 
-        if (allowInvoke)
-        {
-            Invoke("ResetShot", timeBetweenShooting);
-            allowInvoke = false;
-        }
-        if(bulletsShot < bulletsPerTap && bulletsLeft > 0)
-        {
-            Invoke("Shoot", timeBetweenShooting);
-        }
+      
     }
     private void ResetShot()
     {

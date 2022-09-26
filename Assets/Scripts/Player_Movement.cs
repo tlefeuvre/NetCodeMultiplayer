@@ -29,7 +29,7 @@ public class Player_Movement : NetworkBehaviour
         jumpState = 0;
         Speed = 10.0f;
 
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
 
     }
@@ -41,7 +41,8 @@ public class Player_Movement : NetworkBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (IsOwner) {
+        if (IsOwner)
+        {
             float xMov = Input.GetAxisRaw("Horizontal");
             float zMov = Input.GetAxisRaw("Vertical");
 
@@ -57,47 +58,47 @@ public class Player_Movement : NetworkBehaviour
             Vector3 rotation = new Vector3(0, yRot, 0) * mouseSensitivityX;
             rotatePlayer(rotation);
 
-        //mouse managment (up/down)
-        float xRot = Input.GetAxisRaw("Mouse Y");
-        Vector3 cameraRotation = new Vector3(xRot, 0, 0) * mouseSensitivityY;
-        if (cam.transform.rotation.x >= -90 && cam.transform.rotation.x <= 90)
-        {
-            rotateCamera(cameraRotation);
-        }
+            //mouse managment (up/down)
+            float xRot = Input.GetAxisRaw("Mouse Y");
+            Vector3 cameraRotation = new Vector3(xRot, 0, 0) * mouseSensitivityY;
+            if (cam.transform.rotation.x >= -90 && cam.transform.rotation.x <= 90)
+            {
+                rotateCamera(cameraRotation);
+            }
 
-        //gestion des animations
-        AnimationsManagement();
+            //gestion des animations
+            AnimationsManagement();
 
 
-        //jump
-        position = transform.position;
+            //jump
+            position = transform.position;
 
-        if (Input.GetKeyDown("space") && jumpState == 0)
-        {
-            jumpState = 1;
-        }
-
-        if (jumpState > 0)
-        {
-            position.y += Time.fixedDeltaTime * jumpForce;
-            transform.position = position;
+            if (Input.GetKeyDown("space") && jumpState == 0)
+            {
+                jumpState = 1;
+            }
 
             if (jumpState > 0)
             {
-                position.y += Time.fixedDeltaTime;
+                position.y += Time.fixedDeltaTime * jumpForce;
                 transform.position = position;
 
-                jumpState -= Time.fixedDeltaTime;
-                if (jumpState < 0)
+                if (jumpState > 0)
                 {
-                    jumpState = 0;
+                    position.y += Time.fixedDeltaTime;
+                    transform.position = position;
+
+                    jumpState -= Time.fixedDeltaTime;
+                    if (jumpState < 0)
+                    {
+                        jumpState = 0;
+                    }
                 }
+
             }
 
         }
-       
     }
-
 
     private void movePlayer(Vector3 _velocity)
     {
@@ -133,27 +134,27 @@ public class Player_Movement : NetworkBehaviour
         Debug.Log("la go la c'est ptetre une fille bien");
         if (Input.GetKey("z"))
         {
-            animator.SetBool("IsIdle", false);
-            animator.SetBool("IsWalkingForward", true);
+            //animator.SetBool("IsIdle", false);
+            //animator.SetBool("IsWalkingForward", true);
         }
         else
         {
-            animator.SetBool("IsWalkingForward", false);
+            //animator.SetBool("IsWalkingForward", false);
         }
         if (Input.GetKey("s"))
         {
-            animator.SetBool("IsIdle", false);
-            animator.SetBool("IsWalkingBackward", true);
+            //animator.SetBool("IsIdle", false);
+            //animator.SetBool("IsWalkingBackward", true);
         }
         else
         {
-            animator.SetBool("IsWalkingBackward", false);
+           // animator.SetBool("IsWalkingBackward", false);
         }
         if (!Input.GetKey("z") && !Input.GetKey("s"))
         {
-            animator.SetBool("IsIdle", true);
-            animator.SetBool("IsWalkingBackward", false);
-            animator.SetBool("IsWalkingForward", false);
+            //animator.SetBool("IsIdle", true);
+            //animator.SetBool("IsWalkingBackward", false);
+           // animator.SetBool("IsWalkingForward", false);
         }
     }
 }

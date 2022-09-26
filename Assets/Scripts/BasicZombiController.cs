@@ -82,7 +82,7 @@ public class BasicZombiController : NetworkBehaviour
             //animator.Play("ZombieWalk");
             Debug.Log("zombie avance");
             getPlayerPosition();
-            if (agent)
+            if (agent && currentHealth >0)
                 agent.SetDestination(playerPosition);
 
 
