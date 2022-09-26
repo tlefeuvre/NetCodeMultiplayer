@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 8296909160803551462}
   - component: {fileID: 5792945446989821124}
   - component: {fileID: 6732395325428979472}
+  - component: {fileID: 7225628315678590999}
   m_Layer: 0
   m_Name: BarbedWireFence_36_v1 (1)
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,11 +97,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6003129732238093647}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.1146908, y: 1.4882588, z: 0.12640227}
-  m_Center: {x: -0.016699791, y: 0.5084717, z: -0.024006076}
+  m_Size: {x: 3.3412228, y: 1.4664068, z: 0.16045076}
+  m_Center: {x: 0.072024345, y: 0.5531421, z: -0.006446868}
 --- !u!95 &8296909160803551462
 Animator:
   serializedVersion: 4
@@ -153,6 +154,22 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0}
   _netRot:
     m_InternalValue: {x: 0, y: 0, z: 0, w: 0}
+--- !u!54 &7225628315678590999
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6003129732238093647}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &7008695705766581455
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +182,7 @@ GameObject:
   - component: {fileID: 5095696742789168636}
   m_Layer: 0
   m_Name: Hitbox
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -193,8 +210,8 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7008695705766581455}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
+  m_IsTrigger: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 3.1146908, y: 1.4882588, z: 0.09810448}
   m_Center: {x: -0.016699791, y: 0.5084717, z: -0.023831367}

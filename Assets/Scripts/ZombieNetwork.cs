@@ -16,14 +16,12 @@ public class ZombieNetwork : NetworkBehaviour
             _netPos.Value = transform.position;
             _netRot.Value = transform.rotation;
             _netHealth.Value = transform.GetComponent<BasicZombiController>().currentHealth;
-            Debug.Log(_netHealth.Value);
         }
         else
         {
             transform.position = _netPos.Value;
             transform.rotation = _netRot.Value;
             transform.GetComponent<BasicZombiController>().currentHealth = _netHealth.Value;
-            Debug.Log(transform.GetComponent<BasicZombiController>().currentHealth);
 
         }
     }

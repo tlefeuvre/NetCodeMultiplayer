@@ -9,6 +9,7 @@ TagManager:
   - FastZombie
   - BasicZombie2
   - Bullet
+  - Trap
   layers:
   - Default
   - TransparentFX

@@ -70,6 +70,7 @@ public class BasicZombiController : NetworkBehaviour
         }
         if (currentHealth <= 0 && IsHost)
         {
+            agent.SetDestination(transform.position);
             gameObject.GetComponent<Collider>().isTrigger = true;
             gameObject.GetComponent<Animator>().enabled = false;
             StartCoroutine(DestroyZombie());
@@ -123,8 +124,27 @@ public class BasicZombiController : NetworkBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("TOUCHE BALLE");
+        Debug.Log("TOUCHE " + collision.transform.tag);
         if (collision.transform.tag == "Bullet")
+        {
+            Debug.Log("TOUCHE BALLE");
             currentHealth -= 30;
+
+        }
+        if (collision.transform.tag == "Trap")
+        {
+            Debug.Log("TOUCHER PIEGE");
+            currentHealth -= -1000;
+
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == "Trap")
+        {
+            Debug.Log("TOUCHER PIEGE");
+            currentHealth = 0;
+
+        }
     }
 }
