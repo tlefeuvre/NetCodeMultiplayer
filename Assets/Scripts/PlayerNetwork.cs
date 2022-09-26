@@ -17,6 +17,7 @@ public class PlayerNetwork : NetworkBehaviour
         }
         else
         {
+
             transform.position = _netPos.Value;
             transform.rotation = _netRot.Value;
         }

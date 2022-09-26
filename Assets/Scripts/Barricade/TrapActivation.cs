@@ -6,6 +6,7 @@ using Unity.Netcode;
 public class TrapActivation : NetworkBehaviour
 {
     public GameObject trap;
+    public GameObject textInfo;
     public Animator animator;
     private bool flagIsActive = false;
     private bool IsOnCollider = false;
@@ -23,14 +24,17 @@ public class TrapActivation : NetworkBehaviour
         {
             Debug.Log("DANS COLLIGER");
             Debug.Log(flagIsActive);
-
+            textInfo.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E) && flagIsActive == false)
             {
                 Debug.Log("Trap Activation");
+                textInfo.SetActive(false);
                 animator.enabled = true;
                 StartCoroutine("getActive");
             }
         }
+        else
+            textInfo.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)

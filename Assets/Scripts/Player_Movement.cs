@@ -25,7 +25,7 @@ public class Player_Movement : NetworkBehaviour
     {
         jumpForce = 2.75f;
 
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
 
     }
@@ -39,7 +39,6 @@ public class Player_Movement : NetworkBehaviour
     {
         if (IsOwner)
         {
-        }
             float xMov = Input.GetAxisRaw("Horizontal");
             float zMov = Input.GetAxisRaw("Vertical");
 
@@ -67,10 +66,8 @@ public class Player_Movement : NetworkBehaviour
 
             //gestion des animations
             AnimationsManagement();
-
-        Debug.Log(cam.transform.rotation.x);
+        }
     }
-
 
     private void movePlayer(Vector3 _velocity)
     {
@@ -104,7 +101,6 @@ public class Player_Movement : NetworkBehaviour
         }
     }
 
-    private void OnColliderEnter(Collider other)
     {
         if (other.tag == "Ground")
         {
