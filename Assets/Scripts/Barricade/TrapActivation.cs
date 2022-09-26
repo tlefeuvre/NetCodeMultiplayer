@@ -6,6 +6,7 @@ using Unity.Netcode;
 public class TrapActivation : NetworkBehaviour
 {
     public GameObject trap;
+    public GameObject textInfo;
     public Animator animator;
     private bool flagIsActive = false;
     private bool IsOnCollider = false;
@@ -15,39 +16,27 @@ public class TrapActivation : NetworkBehaviour
     }
     private void Update()
     {
-        if (IsOwner)
+        if (!animator && IsHost) 
         {
-            if (!animator && IsHost)
+            animator = trap.GetComponent<Animator>();
+        }
+        if (IsOnCollider)
+        {
+            Debug.Log("DANS COLLIGER");
+            Debug.Log(flagIsActive);
+            textInfo.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E) && flagIsActive == false)
             {
-                animator = trap.GetComponent<Animator>();
-            }
-            if (IsOnCollider)
-            {
-                Debug.Log("DANS COLLIGER");
-                Debug.Log(flagIsActive);
-
-                if (Input.GetKeyDown(KeyCode.E) && flagIsActive == false)
-                {
-                    Debug.Log("Trap Activation");
-                    if (IsHost)
-                    {
-                        animator.enabled = true;
-                        StartCoroutine("getActive");
-
-                    }
-                    else
-                        SubmitRequestTrapServerRpc();
-                }
+                Debug.Log("Trap Activation");
+                textInfo.SetActive(false);
+                animator.enabled = true;
+                StartCoroutine("getActive");
             }
         }
-        
+        else
+            textInfo.SetActive(false);
     }
-    [ServerRpc]
-    private void SubmitRequestTrapServerRpc(ServerRpcParams rpcParams = default)
-    {
-        animator.enabled = true;
-        StartCoroutine("getActive");
-    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player") //si on percute un joueur, le monstre meurt
