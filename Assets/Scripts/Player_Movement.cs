@@ -26,7 +26,7 @@ public class Player_Movement : NetworkBehaviour
         jumpForce = 2.75f;
         
 
-        //animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
 
     }

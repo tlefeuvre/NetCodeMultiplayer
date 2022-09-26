@@ -14,6 +14,7 @@ public class Player_Manager : MonoBehaviour
     private bool activateHealthRegen = false;
     private float MaxHealth = 150;
     private float CurrHealth;
+
     // Start is called before the first frame update
     void Start()
     {
