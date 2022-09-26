@@ -18,6 +18,6 @@ public class quitButton : MonoBehaviour
     }
     public void doReturnMenu()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 }

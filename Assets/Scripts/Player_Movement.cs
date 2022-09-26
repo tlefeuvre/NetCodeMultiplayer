@@ -41,7 +41,7 @@ public class Player_Movement : NetworkBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (IsOwner) {
+        if (IsOwner) { }
             float xMov = Input.GetAxisRaw("Horizontal");
             float zMov = Input.GetAxisRaw("Vertical");
 
