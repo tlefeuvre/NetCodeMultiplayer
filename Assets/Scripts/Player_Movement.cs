@@ -24,6 +24,7 @@ public class Player_Movement : NetworkBehaviour
     void Start()
     {
         jumpForce = 2.75f;
+        
 
         //animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
@@ -38,7 +39,7 @@ public class Player_Movement : NetworkBehaviour
     void FixedUpdate()
     {
         if (IsOwner)
-        {
+        { }
             float xMov = Input.GetAxisRaw("Horizontal");
             float zMov = Input.GetAxisRaw("Vertical");
 
@@ -66,7 +67,7 @@ public class Player_Movement : NetworkBehaviour
 
             //gestion des animations
             AnimationsManagement();
-        }
+        //}
     }
 
     private void movePlayer(Vector3 _velocity)
@@ -101,14 +102,23 @@ public class Player_Movement : NetworkBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.tag == "Ground")
+     if (collision.gameObject.tag == "Ground")
         {
             onground = true;
+            Debug.Log("pte");
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            onground = false;
         }
     }
 
-    private void AnimationsManagement()
+        private void AnimationsManagement()
     {
         if (Input.GetKey("z"))
         {
