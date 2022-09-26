@@ -16,7 +16,7 @@ public class Player_Movement : NetworkBehaviour
 
     Rigidbody m_Rigidbody;
 
-    [SerializeField] Camera cam;
+    [SerializeField] GameObject cam;
 
     [SerializeField] float Speed = 5;
     [SerializeField] float mouseSensitivityX = 6;
@@ -31,25 +31,31 @@ public class Player_Movement : NetworkBehaviour
 
         animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
+
     }
-    
+    private void Update()
+    {
+        if (!IsOwner)
+            cam.SetActive(false);
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
-        float xMov = Input.GetAxisRaw("Horizontal");
-        float zMov = Input.GetAxisRaw("Vertical");
+        if (IsOwner) {
+            float xMov = Input.GetAxisRaw("Horizontal");
+            float zMov = Input.GetAxisRaw("Vertical");
 
-        Vector3 moveHorizontal = transform.right * xMov;
-        Vector3 moveVertical = transform.forward * zMov;
+            Vector3 moveHorizontal = transform.right * xMov;
+            Vector3 moveVertical = transform.forward * zMov;
 
-        Vector3 velocity = (moveHorizontal + moveVertical).normalized * Speed;
+            Vector3 velocity = (moveHorizontal + moveVertical).normalized * Speed;
 
-        movePlayer(velocity);
+            movePlayer(velocity);
 
-        //mouse managment (left/right)
-        float yRot = Input.GetAxisRaw("Mouse X");
-        Vector3 rotation = new Vector3(0, yRot, 0) * mouseSensitivityX;
-        rotatePlayer(rotation);
+            //mouse managment (left/right)
+            float yRot = Input.GetAxisRaw("Mouse X");
+            Vector3 rotation = new Vector3(0, yRot, 0) * mouseSensitivityX;
+            rotatePlayer(rotation);
 
         //mouse managment (up/down)
         float xRot = Input.GetAxisRaw("Mouse Y");
@@ -76,12 +82,20 @@ public class Player_Movement : NetworkBehaviour
             position.y += Time.fixedDeltaTime * jumpForce;
             transform.position = position;
 
-            jumpState -= Time.fixedDeltaTime;
-            if (jumpState < 0)
+            if (jumpState > 0)
             {
-                jumpState = 0;
+                position.y += Time.fixedDeltaTime;
+                transform.position = position;
+
+                jumpState -= Time.fixedDeltaTime;
+                if (jumpState < 0)
+                {
+                    jumpState = 0;
+                }
             }
+
         }
+       
     }
 
 

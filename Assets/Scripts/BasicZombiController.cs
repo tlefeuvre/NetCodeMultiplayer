@@ -95,4 +95,11 @@ public class BasicZombiController : NetworkBehaviour
             }
        
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("TOUCHE BALLE");
+        if (collision.transform.tag == "Bullet")
+            currentHealth -= 30;
+    }
 }
