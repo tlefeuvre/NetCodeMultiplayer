@@ -24,6 +24,6 @@ public class EntitiesManager : MonoBehaviour
     }
     private void Update()
     {
-        kills.GetComponent<TextMeshPro>().text = nbzombiesKilled.ToString();
+        kills.GetComponent<TMP_Text>().text = nbzombiesKilled.ToString();
     }
 }
