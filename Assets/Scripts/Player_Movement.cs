@@ -14,21 +14,18 @@ public class Player_Movement : NetworkBehaviour
     Rigidbody m_Rigidbody;
 
     [SerializeField] GameObject cam;
+    [SerializeField] GameObject armsNRiffle;
 
     [SerializeField] float Speed = 10.0f;
-    [SerializeField] float mouseSensitivityX = 6.0f;
-    [SerializeField] float mouseSensitivityY = 6.0f;
-    private float jumpForce;
+    [SerializeField] float mouseSensitivityX = 4.0f;
+    [SerializeField] float mouseSensitivityY = 3.0f;
+    [SerializeField] private float jumpForce = 2.75f;
 
     // Start is called before the first frame update
     void Start()
     {
-        jumpForce = 2.75f;
-        
-
         animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
-
     }
     private void Update()
     {
@@ -40,8 +37,11 @@ public class Player_Movement : NetworkBehaviour
     void FixedUpdate()
     {
         if (IsOwner)
-        { }
-            float xMov = Input.GetAxisRaw("Horizontal");
+        {
+            Debug.Log(cam.transform.localEulerAngles.x);
+
+        }
+        float xMov = Input.GetAxisRaw("Horizontal");
             float zMov = Input.GetAxisRaw("Vertical");
 
             if (Input.GetKeyDown(KeyCode.Space) && onground == true)
@@ -57,17 +57,19 @@ public class Player_Movement : NetworkBehaviour
             movePlayer(velocity);
 
             //mouse managment (left/right)
-            float yRot = Input.GetAxisRaw("Mouse X");
-            Vector3 rotation = new Vector3(0, yRot, 0) * mouseSensitivityX;
+            float yRot = Input.GetAxisRaw("Mouse X") * mouseSensitivityX;
+            Vector3 rotation = new Vector3(0, yRot, 0);
             rotatePlayer(rotation);
 
-            //mouse managment (up/down)
-            float xRot = Input.GetAxisRaw("Mouse Y");
-            Vector3 cameraRotation = new Vector3(xRot, 0, 0) * mouseSensitivityY;
-            rotateCamera(cameraRotation);
+        //mouse managment (up/down)
+        float xRot = Input.GetAxisRaw("Mouse Y");
+        Vector3 cameraRotation = new Vector3(xRot, 0, 0) * mouseSensitivityY;
+        rotateCamera(cameraRotation);
 
-            //gestion des animations
-            AnimationsManagement();
+        Debug.Log(cam.transform.localEulerAngles.x);
+
+        //gestion des animations
+        AnimationsManagement();
         //}
     }
 
@@ -84,22 +86,23 @@ public class Player_Movement : NetworkBehaviour
         m_Rigidbody.MoveRotation(m_Rigidbody.rotation * Quaternion.Euler(_rotation));
     }
 
-    private void rotateCamera(Vector3 _cameraRotation)
+    private void rotateCamera(Vector3 cameraRotation)
     {
-        if(cam.transform.rotation.x > -0.70 && cam.transform.rotation.x < 0.70)
+        if(cam.transform.localEulerAngles.x > 300 || cam.transform.localEulerAngles.x < 60)
         {
-            cam.transform.Rotate(-_cameraRotation);
+            cam.transform.Rotate(-cameraRotation);
+            armsNRiffle.transform.Rotate(-cameraRotation);
         }
 
-        if(cam.transform.rotation.x < -0.70)
+        if (cam.transform.localEulerAngles.x > 180 && cam.transform.localEulerAngles.x < 300)
         {
-            _cameraRotation.x = -0.70f;
-            cam.transform.Rotate(-_cameraRotation);
+            cam.transform.localEulerAngles = new Vector3(305, 0, 0);
+            armsNRiffle.transform.localEulerAngles = new Vector3(305, 0, 0);
         }
-        if(cam.transform.rotation.x > 0.70)
+        if(cam.transform.localEulerAngles.x <= 180 && cam.transform.localEulerAngles.x > 60)
         {
-            _cameraRotation.x = 0.70f;
-            cam.transform.Rotate(-_cameraRotation);
+            cam.transform.localEulerAngles = new Vector3(55, 0, 0);
+            armsNRiffle.transform.localEulerAngles = new Vector3(55, 0, 0);
         }
     }
 

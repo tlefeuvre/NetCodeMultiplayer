@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Netcode;
+using System.Net.Sockets;
 
-public class Player_Manager : MonoBehaviour
+
+public class Player_Manager : NetworkBehaviour
 {
 
     [SerializeField] GameObject slider;
@@ -19,7 +22,7 @@ public class Player_Manager : MonoBehaviour
     void Start()
     {
         CurrHealth = MaxHealth;
-
+        
         sliderValue = GetComponent<Slider>();
     }
 
