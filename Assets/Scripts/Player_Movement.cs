@@ -39,7 +39,6 @@ public class Player_Movement : NetworkBehaviour
     {
         if (IsOwner)
         {
-
             float xMov = Input.GetAxisRaw("Horizontal");
             float zMov = Input.GetAxisRaw("Vertical");
 
@@ -53,17 +52,26 @@ public class Player_Movement : NetworkBehaviour
 
             Vector3 velocity = (moveHorizontal + moveVertical).normalized * Speed;
 
-            movePlayer(velocity);
+            
 
             //mouse managment (left/right)
             float yRot = Input.GetAxisRaw("Mouse X") * mouseSensitivityX;
             Vector3 rotation = new Vector3(0, yRot, 0);
-            rotatePlayer(rotation);
+            
 
             //mouse managment (up/down)
             float xRot = Input.GetAxisRaw("Mouse Y");
             Vector3 cameraRotation = new Vector3(xRot, 0, 0) * mouseSensitivityY;
-            rotateCamera(cameraRotation);
+            if (!MenuEvent.isPause)
+            {
+                movePlayer(velocity);
+                rotatePlayer(rotation);
+                rotateCamera(cameraRotation);
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+            }
 
             //gestion des animations
             AnimationsManagement();
@@ -87,7 +95,7 @@ public class Player_Movement : NetworkBehaviour
 
     private void rotateCamera(Vector3 cameraRotation)
     {
-        if(cam.transform.localEulerAngles.x > 300 || cam.transform.localEulerAngles.x < 60)
+        if(cam.transform.localEulerAngles.x >= 300 || cam.transform.localEulerAngles.x < 60)
         {
             cam.transform.Rotate(-cameraRotation);
             armsNRiffle.transform.Rotate(-cameraRotation);
@@ -98,7 +106,7 @@ public class Player_Movement : NetworkBehaviour
             cam.transform.localEulerAngles = new Vector3(305, 0, 0);
             armsNRiffle.transform.localEulerAngles = new Vector3(305, 0, 0);
         }
-        if(cam.transform.localEulerAngles.x <= 180 && cam.transform.localEulerAngles.x > 60)
+        if(cam.transform.localEulerAngles.x <= 180 && cam.transform.localEulerAngles.x >= 60)
         {
             cam.transform.localEulerAngles = new Vector3(55, 0, 0);
             armsNRiffle.transform.localEulerAngles = new Vector3(55, 0, 0);

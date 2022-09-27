@@ -10,7 +10,7 @@ public class Player_Manager : NetworkBehaviour
 {
 
     [SerializeField] GameObject slider;
-    private Slider sliderValue;
+    private Slider sliderC;
 
     private bool flagCoroutine = false;
 
@@ -18,25 +18,36 @@ public class Player_Manager : NetworkBehaviour
     private float MaxHealth = 150;
     private float CurrHealth;
 
+    static public bool GameOver;
+
     // Start is called before the first frame update
     void Start()
     {
         CurrHealth = MaxHealth;
         
-        sliderValue = GetComponent<Slider>();
+        sliderC = slider.GetComponent<Slider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (CurrHealth <= 0)
+        if(!sliderC)
         {
-            print("ratio");
+            sliderC = slider.GetComponent<Slider>();
         }
 
-        sliderValue.value = CurrHealth/MaxHealth;
 
-        if (!flagCoroutine)
+        if (CurrHealth <= 0)
+        {
+            GameOver = true;
+        }
+
+        if(sliderC)
+        {
+            sliderC.value = CurrHealth/MaxHealth;
+        }
+
+        if (!flagCoroutine && !gameObject)
         {
             StartCoroutine("WaitRegen");
         }
@@ -72,7 +83,7 @@ public class Player_Manager : NetworkBehaviour
             CurrHealth -= 40;
             activateHealthRegen = false;
         }
-        if (collision.gameObject.tag == "BasicZombie")
+        if (collision.gameObject.tag == "FastZombie")
         {
             CurrHealth -= 40;
             activateHealthRegen = false;
