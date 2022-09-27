@@ -43,7 +43,7 @@ public class Player_Movement : NetworkBehaviour
             float xMov = Input.GetAxisRaw("Horizontal");
             float zMov = Input.GetAxisRaw("Vertical");
 
-            if (Input.GetKeyDown("space") && onground == true)
+            if (Input.GetKeyDown(KeyCode.Space) && onground == true)
             {
                 m_Rigidbody.AddForce(new Vector3(0f, jumpForce, 0f), ForceMode.Impulse);
             }
@@ -107,7 +107,6 @@ public class Player_Movement : NetworkBehaviour
      if (collision.gameObject.tag == "Ground")
         {
             onground = true;
-            Debug.Log("pte");
         }
     }
     private void OnCollisionExit(Collision collision)
@@ -120,7 +119,7 @@ public class Player_Movement : NetworkBehaviour
 
         private void AnimationsManagement()
     {
-        if (Input.GetKey("z"))
+        if (Input.GetKey(KeyCode.W))
         {
             animator.SetBool("IsWalkingForward", true);
         }

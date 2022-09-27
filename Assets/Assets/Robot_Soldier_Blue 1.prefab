@@ -1108,7 +1108,7 @@ GameObject:
   - component: {fileID: 4468519549282688}
   - component: {fileID: 95812470430208240}
   m_Layer: 0
-  m_Name: Robot_Soldier_Blue
+  m_Name: Robot_Soldier_Blue 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
