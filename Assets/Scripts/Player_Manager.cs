@@ -16,6 +16,7 @@ public class Player_Manager : NetworkBehaviour
 
     private bool activateHealthRegen = false;
     private float MaxHealth = 150;
+    [SerializeField]
     private float CurrHealth;
 
     static public bool GameOver;
