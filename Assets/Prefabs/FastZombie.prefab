@@ -2059,7 +2059,7 @@ Transform:
   m_GameObject: {fileID: 6206406188252097088}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 23.481089, y: -0.5, z: 21.083803}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6496624789822505770}
@@ -2121,7 +2121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86494562bac7f7e4e9a5586da6470962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  players: []
   playerPosition: {x: 0, y: 0, z: 0}
   surfaces: []
   agent: {fileID: 6324591246334205008}

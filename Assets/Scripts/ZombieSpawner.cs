@@ -7,6 +7,7 @@ public class ZombieSpawner : NetworkBehaviour
 {
     // Start is called before the first frame update
     public GameObject[] zombies;
+    public Vector3 spawnPos;
     private float nextActionTime = 0.0f;
     public float period = 3f;
     private int[] phasesTimer = new int[5] { 5, 4, 3, 2, 1 };
@@ -79,16 +80,15 @@ public class ZombieSpawner : NetworkBehaviour
     }
     private void Spawn()
     {
-       if(IsHost && EntitiesManager.Instance.nbzombies < 100)
+       if(IsHost && EntitiesManager.Instance.nbzombies < EntitiesManager.Instance.maxZombies)
         {
             int randomZombieId = Random.Range(0, zombies.Length);
 
             int rand = Random.Range(1, zombies[randomZombieId].transform.childCount);
 
             Debug.Log("SPAWNNNN!!");
-
-            Vector3 pos = new Vector3(0f, -1.0f, 0f);
-            GameObject newObject = Instantiate(zombies[randomZombieId]) as GameObject;
+            spawnPos = transform.position;
+            GameObject newObject = Instantiate(zombies[randomZombieId],spawnPos, Quaternion.identity) as GameObject;
             //newObject.transform.GetChild(rand).gameObject.SetActive(true);
             newObject.GetComponent<NetworkObject>().Spawn();
             EntitiesManager.Instance.nbzombies += 1;

@@ -69,6 +69,7 @@ public class BasicZombiController : NetworkBehaviour
         // suspend execution for 10 seconds
         yield return new WaitForSeconds(5);
         EntitiesManager.Instance.nbzombies -= 1;
+        EntitiesManager.Instance.nbzombiesKilled += 1;
 
         NetworkObject m_SpawnedNetworkObject = this.GetComponent<NetworkObject>();
         m_SpawnedNetworkObject.Despawn();
