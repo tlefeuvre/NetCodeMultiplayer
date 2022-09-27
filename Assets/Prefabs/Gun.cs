@@ -33,13 +33,20 @@ public class Gun : NetworkBehaviour
         if (IsOwner)
         {
             particles.Stop();
+            if (!MenuEvent.isPause) {
+                Debug.Log("plus en pause");
+                Cursor.lockState = CursorLockMode.Locked;
+                MyInput();
 
-            MyInput();
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                Cursor.visible = !Cursor.visible;
             }
-            Cursor.lockState = CursorLockMode.Locked;
+            else
+            {
+                Debug.Log(" en pause");
+                Cursor.lockState = CursorLockMode.Confined;
+
+            }
+
+
         }
 
 

@@ -72,19 +72,19 @@ public class Player_Manager : NetworkBehaviour
         flagCoroutine = false;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "BasicZombie")
+        if (other.gameObject.tag == "BasicZombie")
         {
             CurrHealth -= 40;
             activateHealthRegen = false;
         }
-        if (collision.gameObject.tag == "BasicZombie2")
+        if (other.gameObject.tag == "BasicZombie2")
         {
             CurrHealth -= 40;
             activateHealthRegen = false;
         }
-        if (collision.gameObject.tag == "FastZombie")
+        if (other.gameObject.tag == "FastZombie")
         {
             CurrHealth -= 40;
             activateHealthRegen = false;

@@ -696,7 +696,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -4.1000366, y: -0.79999924}
   m_SizeDelta: {x: 1.99, y: -10.74}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5717,6 +5717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuPause: {fileID: 983185525}
+  menuGOver: {fileID: 776066963}
 --- !u!1001 &165892022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6194,6 +6195,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 8638330510793835118, guid: f17699a579a41b14bb31a1d96b7ab100,
         type: 3}
+      propertyPath: NetworkConfig.NetworkTransport
+      value: 
+      objectReference: {fileID: 174221749}
+    - target: {fileID: 8638330510793835118, guid: f17699a579a41b14bb31a1d96b7ab100,
+        type: 3}
       propertyPath: NetworkConfig.NetworkPrefabs.Array.size
       value: 12
       objectReference: {fileID: 0}
@@ -6323,7 +6329,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8638330510793835121, guid: f17699a579a41b14bb31a1d96b7ab100, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f17699a579a41b14bb31a1d96b7ab100, type: 3}
 --- !u!1 &174221745 stripped
 GameObject:
@@ -6343,22 +6350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76785e4ad68cdd846a3f6ae60a0de903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbzombies: 0
-  nbzombiesKilled: 0
-  maxZombies: 50
   kills: {fileID: 43060673}
---- !u!114 &174221747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 174221745}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ad53834752104b4da535f9ca5101809, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &174221748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6371,6 +6363,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2256707992ab6f54697ab64bab0c6150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &174221749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174221745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6960e84d07fb87f47956e7a81d71c4e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ProtocolType: 0
+  m_MaxPacketQueueSize: 128
+  m_MaxPayloadSize: 6144
+  m_MaxSendQueueSize: 98304
+  m_HeartbeatTimeoutMS: 500
+  m_ConnectTimeoutMS: 1000
+  m_MaxConnectAttempts: 60
+  m_DisconnectTimeoutMS: 30000
+  ConnectionData:
+    Address: 127.0.0.1
+    Port: 7777
+    ServerListenAddress: 
+  DebugSimulator:
+    PacketDelayMS: 0
+    PacketJitterMS: 0
+    PacketDropRate: 0
 --- !u!1001 &176527772
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9830,7 +9850,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &265975802
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14244,7 +14264,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4dc9809b7323d784486a6314ee071d7a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -17697,7 +17717,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Resume gAME
+  m_text: Press escape to resume the game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0e28be7d83606324298eadc1d53883f5, type: 2}
   m_sharedMaterial: {fileID: -6680903407682056704, guid: 0e28be7d83606324298eadc1d53883f5,
@@ -53963,7 +53983,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 1.8200989, y: 0}
   m_SizeDelta: {x: -0.09, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

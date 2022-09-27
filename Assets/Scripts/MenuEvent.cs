@@ -23,6 +23,7 @@ public class MenuEvent : MonoBehaviour
             menuPause.SetActive(false);
             flag = false;
             isPause = false;
+            Debug.Log("jmet a faux menu");
         }
         if (!menuPause.activeSelf && flag == true)
             flag = false;

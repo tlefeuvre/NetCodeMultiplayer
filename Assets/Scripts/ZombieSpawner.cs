@@ -79,8 +79,8 @@ public class ZombieSpawner : NetworkBehaviour
 
     }
     private void Spawn()
-    {
-       if(IsHost && EntitiesManager.Instance.nbzombies < EntitiesManager.Instance.maxZombies)
+{
+        if (IsHost && EntitiesManager.nbzombies < EntitiesManager.maxZombies)
         {
             int randomZombieId = Random.Range(0, zombies.Length);
 
@@ -88,11 +88,12 @@ public class ZombieSpawner : NetworkBehaviour
 
             Debug.Log("SPAWNNNN!!");
             spawnPos = transform.position;
-            GameObject newObject = Instantiate(zombies[randomZombieId],spawnPos, Quaternion.identity) as GameObject;
+            GameObject newObject = Instantiate(zombies[randomZombieId], spawnPos, Quaternion.identity) as GameObject;
             //newObject.transform.GetChild(rand).gameObject.SetActive(true);
             newObject.GetComponent<NetworkObject>().Spawn();
-            EntitiesManager.Instance.nbzombies += 1;
+            EntitiesManager.nbzombies += 1;
         }
+       
        
 
     }

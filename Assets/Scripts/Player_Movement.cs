@@ -64,6 +64,8 @@ public class Player_Movement : NetworkBehaviour
             Vector3 cameraRotation = new Vector3(xRot, 0, 0) * mouseSensitivityY;
             if (!MenuEvent.isPause)
             {
+                Cursor.lockState = CursorLockMode.Locked;
+
                 movePlayer(velocity);
                 rotatePlayer(rotation);
                 rotateCamera(cameraRotation);
