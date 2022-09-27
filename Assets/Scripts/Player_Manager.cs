@@ -48,7 +48,7 @@ public class Player_Manager : NetworkBehaviour
             sliderC.value = CurrHealth/MaxHealth;
         }
 
-        if (!flagCoroutine && !gameObject)
+        if (!flagCoroutine && !GameOver)
         {
             StartCoroutine("WaitRegen");
         }
