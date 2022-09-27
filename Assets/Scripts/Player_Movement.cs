@@ -29,6 +29,7 @@ public class Player_Movement : NetworkBehaviour
     }
     private void Update()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         if (!IsOwner)
             cam.SetActive(false);
         
@@ -39,9 +40,7 @@ public class Player_Movement : NetworkBehaviour
         if (IsOwner)
         {
             Debug.Log(cam.transform.localEulerAngles.x);
-
-        }
-        float xMov = Input.GetAxisRaw("Horizontal");
+            float xMov = Input.GetAxisRaw("Horizontal");
             float zMov = Input.GetAxisRaw("Vertical");
 
             if (Input.GetKeyDown(KeyCode.Space) && onground == true)
@@ -61,16 +60,18 @@ public class Player_Movement : NetworkBehaviour
             Vector3 rotation = new Vector3(0, yRot, 0);
             rotatePlayer(rotation);
 
-        //mouse managment (up/down)
-        float xRot = Input.GetAxisRaw("Mouse Y");
-        Vector3 cameraRotation = new Vector3(xRot, 0, 0) * mouseSensitivityY;
-        rotateCamera(cameraRotation);
+            //mouse managment (up/down)
+            float xRot = Input.GetAxisRaw("Mouse Y");
+            Vector3 cameraRotation = new Vector3(xRot, 0, 0) * mouseSensitivityY;
+            rotateCamera(cameraRotation);
 
-        Debug.Log(cam.transform.localEulerAngles.x);
+            Debug.Log(cam.transform.localEulerAngles.x);
 
-        //gestion des animations
-        AnimationsManagement();
-        //}
+            //gestion des animations
+            AnimationsManagement();
+           
+        }
+
     }
 
     private void movePlayer(Vector3 _velocity)
