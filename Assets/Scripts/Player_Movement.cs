@@ -34,6 +34,7 @@ public class Player_Movement : NetworkBehaviour
     {
         if (!IsOwner)
             cam.SetActive(false);
+        
     }
     // Update is called once per frame
     void FixedUpdate()

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trap: {fileID: 0}
+  textInfo: {fileID: 0}
   animator: {fileID: 0}
 --- !u!65 &6379564806007841237
 BoxCollider:
@@ -58,8 +59,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.8716927, y: 3.2086143, z: 4.471182}
-  m_Center: {x: -0.50736904, y: 1.1043072, z: -0.5960219}
+  m_Size: {x: 3.8716927, y: 0.49797988, z: 4.471182}
+  m_Center: {x: -0.50736904, y: -0.25101006, z: -0.5960219}
 --- !u!1 &6379564806925499726
 GameObject:
   m_ObjectHideFlags: 0

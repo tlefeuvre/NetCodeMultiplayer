@@ -47,7 +47,11 @@ public class TrapActivation : NetworkBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        IsOnCollider = false;
+
+        if (other.gameObject.tag == "Player") //si on percute un joueur, le monstre meurt
+        {
+            IsOnCollider = false;
+        }
     }
 
         IEnumerator getActive() //La coroutine sert à désactiver partiellement le monstre pour jouer le son de mort avant de le supprimer pour de bons à la fin

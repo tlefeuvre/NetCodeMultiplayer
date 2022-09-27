@@ -10,6 +10,7 @@ public class TrapSpawner : NetworkBehaviour
     public GameObject Hitbox;
 
     private bool isOk = false;
+
     // Start is called before the first frame update
     void Start()
     {

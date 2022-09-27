@@ -29,7 +29,7 @@ public class PlayerNetworkManager : MonoBehaviour
         if (GUILayout.Button("Client")) NetworkManager.Singleton.StartClient();
         if (GUILayout.Button("Server")) NetworkManager.Singleton.StartServer();
     }
-
+    
     static void StatusLabels()
     {
         var mode = NetworkManager.Singleton.IsHost ?
