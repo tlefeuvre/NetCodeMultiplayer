@@ -7,7 +7,7 @@ using Unity.Netcode;
 public class BasicZombiController : NetworkBehaviour
 {
     // Start is called before the first frame update
-    public GameObject player;
+    public GameObject[] players;
     public Vector3 playerPosition;
     public NavMeshSurface[] surfaces;
 
@@ -25,10 +25,8 @@ public class BasicZombiController : NetworkBehaviour
 
         startAnimationRandom = Random.Range(0, 5.0f);
         animator = GetComponent<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        players = GameObject.FindGameObjectsWithTag("Player");
 
-        if(player)
-            playerPosition = player.transform.position;
 
         StartCoroutine(ExampleCoroutine());
 
@@ -46,16 +44,32 @@ public class BasicZombiController : NetworkBehaviour
         isAnimationEnabled = true;
     }
 
-    private void getPlayerPosition()
+    private Vector3 getNearestPlayerPosition()
     {
-        if (player)
-            playerPosition = player.transform.position;
+        int id = 0;
+        float nearestDistance=-1;
+        for(int i=0;i< players.Length;i++)
+        {
+            float tmp = Vector3.Distance(this.transform.position, players[i].transform.position);
+            if (tmp < 0)
+                tmp *= -1;
+
+            if(tmp < nearestDistance || nearestDistance == -1)
+            {
+                nearestDistance = tmp;
+                id = i;
+            }
+        }
+         return players[id].transform.position;
 
     }
     IEnumerator DestroyZombie()
     {
+
         // suspend execution for 10 seconds
         yield return new WaitForSeconds(5);
+        EntitiesManager.Instance.nbzombies -= 1;
+
         NetworkObject m_SpawnedNetworkObject = this.GetComponent<NetworkObject>();
         m_SpawnedNetworkObject.Despawn();
 
@@ -84,10 +98,11 @@ public class BasicZombiController : NetworkBehaviour
 
         }
 
-        if (!player)
+        if (players.Length ==0)
         {
             Debug.Log("search player");
-            player = GameObject.FindGameObjectWithTag("Player");
+            players = GameObject.FindGameObjectsWithTag("Player");
+
 
         }
 
@@ -104,11 +119,10 @@ public class BasicZombiController : NetworkBehaviour
 
             //animator.Play("ZombieWalk");
             Debug.Log("zombie avance");
-            getPlayerPosition();
             if (agent && currentHealth >0)
-                agent.SetDestination(playerPosition);
+                agent.SetDestination(getNearestPlayerPosition());
             if(agent && currentHealth <0)
-                agent.SetDestination(transform.position);
+                agent.SetDestination(getNearestPlayerPosition());
 
 
 

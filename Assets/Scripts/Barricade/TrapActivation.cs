@@ -10,13 +10,19 @@ public class TrapActivation : NetworkBehaviour
     public Animator animator;
     private bool flagIsActive = false;
     private bool IsOnCollider = false;
+    public NetworkVariable<bool> _isActivate = new(writePerm: NetworkVariableWritePermission.Owner);
+
     private void Start()
     {
 
     }
     private void Update()
     {
-        if (!animator && IsHost) 
+        if (_isActivate.Value)
+        {
+            ActivateTrap();
+        }
+        if (trap && !animator && IsHost)
         {
             animator = trap.GetComponent<Animator>();
         }
@@ -27,16 +33,38 @@ public class TrapActivation : NetworkBehaviour
             textInfo.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E) && flagIsActive == false)
             {
-                Debug.Log("Trap Activation");
-                textInfo.SetActive(false);
-                animator.enabled = true;
-                StartCoroutine("getActive");
+
+                if (IsHost)
+                {
+                    Debug.Log("activate Trap host");
+                    //_isActivate.Value = true;
+                    ActivateTrap();
+                }
+                else
+                {
+                    Debug.Log("activate Trap client");
+                    SubmitRequestActivateTrapServerRpc();
+                }
+
             }
         }
         else
             textInfo.SetActive(false);
+       
     }
-
+    [ServerRpc(RequireOwnership = false)]
+    private void SubmitRequestActivateTrapServerRpc(ServerRpcParams rpcParams = default)
+    {
+        ActivateTrap();
+    }
+    private void ActivateTrap()
+    {
+        Debug.Log("activate Trap");
+        textInfo.SetActive(false);
+        animator.enabled = true;
+        StartCoroutine("getActive");
+        
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -60,5 +88,7 @@ public class TrapActivation : NetworkBehaviour
         yield return new WaitForSeconds(6f);
         flagIsActive = false;
         animator.enabled = false;
+        if (IsHost)
+            _isActivate.Value = false;
     }
 }

@@ -439,7 +439,7 @@ PrefabInstance:
     - target: {fileID: 1899467402394583035, guid: 7050c910fa7f7934cbf7a468d6f75217,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1899467402394583035, guid: 7050c910fa7f7934cbf7a468d6f75217,
         type: 3}
@@ -1078,12 +1078,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1396966708}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86494562bac7f7e4e9a5586da6470962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  players: []
   playerPosition: {x: 0, y: 0, z: 0}
   surfaces: []
   agent: {fileID: 0}
@@ -1669,6 +1669,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2639828373558615197, guid: 752c367b6e5d86645ac23579ea0cb958,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5702615803119955777, guid: 752c367b6e5d86645ac23579ea0cb958,
         type: 3}
       propertyPath: m_RootOrder
@@ -1811,6 +1816,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ZombieSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 7443870503516299828, guid: e81f842077f2fe34fb1cbd0501c575ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7443870503516299830, guid: e81f842077f2fe34fb1cbd0501c575ad,
         type: 3}

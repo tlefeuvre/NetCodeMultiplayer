@@ -79,17 +79,22 @@ public class ZombieSpawner : NetworkBehaviour
     }
     private void Spawn()
     {
-       
-        int randomZombieId = Random.Range(0, zombies.Length);
+       if(IsHost && EntitiesManager.Instance.nbzombies < 1)
+        {
+            int randomZombieId = Random.Range(0, zombies.Length);
 
-        int rand = Random.Range(1, zombies[randomZombieId].transform.childCount);
+            int rand = Random.Range(1, zombies[randomZombieId].transform.childCount);
 
             Debug.Log("SPAWNNNN!!");
 
-        Vector3 pos = new Vector3(0f, -1.0f, 0f);
-        GameObject newObject = Instantiate(zombies[randomZombieId]) as GameObject;
-        //newObject.transform.GetChild(rand).gameObject.SetActive(true);
-        newObject.GetComponent<NetworkObject>().Spawn();
+            Vector3 pos = new Vector3(0f, -1.0f, 0f);
+            GameObject newObject = Instantiate(zombies[randomZombieId]) as GameObject;
+            //newObject.transform.GetChild(rand).gameObject.SetActive(true);
+            newObject.GetComponent<NetworkObject>().Spawn();
+            EntitiesManager.Instance.nbzombies += 1;
+        }
+       
+
     }
     private void Update()
     {
