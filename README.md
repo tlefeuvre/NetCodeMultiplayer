@@ -14,6 +14,9 @@ Notre jeu est un survival zombi en multijoueurs. Les joueurs disposent d'un fusi
 - Prototypage de barricades ainsi que de leur destruction/reconstruction (non fonctionnel en multijoueur)
 - Post processing pour rajouter de l'ambiance, musiques
 
+## Comment jouer ?
+
+Lancez le jeu à partir de scenes/SceneMenu. Vous pourrez ensuite choisir entre vous connecter en tant qu'host ou client. Il ne reste ensuite qu'à profiter du jeu !
 ### Notre groupe
 
 Lefeuvre Théo
