@@ -79,7 +79,7 @@ public class ZombieSpawner : NetworkBehaviour
     }
     private void Spawn()
     {
-       if(IsHost && EntitiesManager.Instance.nbzombies < 1)
+       if(IsHost && EntitiesManager.Instance.nbzombies < 100)
         {
             int randomZombieId = Random.Range(0, zombies.Length);
 

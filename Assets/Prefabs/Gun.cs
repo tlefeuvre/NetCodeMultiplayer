@@ -18,20 +18,22 @@ public class Gun : NetworkBehaviour
 
     public Camera fpsCamera;
     public Transform attackPoint;
-
+    public ParticleSystem particles;
     public Vector3 aimDirection;
     public bool allowInvoke = true;
     private void Awake()
     {
        
-            bulletsLeft = magazineSize;
-            readyToShoot = true;
+        bulletsLeft = magazineSize;
+        readyToShoot = true;
 
     }
     private void Update()
     {
         if (IsOwner)
         {
+            particles.Stop();
+
             MyInput();
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -39,7 +41,8 @@ public class Gun : NetworkBehaviour
             }
             Cursor.lockState = CursorLockMode.Locked;
         }
-            
+
+
     }
     private void MyInput()
     {
@@ -84,6 +87,7 @@ public class Gun : NetworkBehaviour
             if (IsHost)
             {
                 Debug.Log("shoot");
+                particles.Play();
 
                 Shoot(directionWithoutSpread);
                 if (allowInvoke)
@@ -98,6 +102,7 @@ public class Gun : NetworkBehaviour
             }
             else {
                 Debug.Log("submit request  shoot");
+                particles.Play();
 
                 SubmitRequestShotServerRpc(directionWithoutSpread);
                 if (allowInvoke)
@@ -136,7 +141,7 @@ public class Gun : NetworkBehaviour
         currentBullet.GetComponent<Rigidbody>().AddForce(fpsCamera.transform.up * upwardForce, ForceMode.Impulse);
 
 
-      
+
     }
     private void ResetShot()
     {

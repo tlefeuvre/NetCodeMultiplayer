@@ -84,7 +84,6 @@ public class BasicZombiController : NetworkBehaviour
         }
         if (currentHealth <= 0 && IsHost)
         {
-            agent.SetDestination(transform.position);
             gameObject.GetComponent<Collider>().isTrigger = true;
             gameObject.GetComponent<Animator>().enabled = false;
             StartCoroutine(DestroyZombie());
@@ -122,7 +121,7 @@ public class BasicZombiController : NetworkBehaviour
             if (agent && currentHealth >0)
                 agent.SetDestination(getNearestPlayerPosition());
             if(agent && currentHealth <0)
-                agent.SetDestination(getNearestPlayerPosition());
+                agent.SetDestination(transform.position);
 
 
 

@@ -47,7 +47,7 @@ public class TrapActivation : NetworkBehaviour
                 }
 
             }
-        }
+        }   
         else
             textInfo.SetActive(false);
        
