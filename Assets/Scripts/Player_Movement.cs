@@ -39,7 +39,7 @@ public class Player_Movement : NetworkBehaviour
     {
         if (IsOwner)
         {
-            Debug.Log(cam.transform.localEulerAngles.x);
+
             float xMov = Input.GetAxisRaw("Horizontal");
             float zMov = Input.GetAxisRaw("Vertical");
 
@@ -64,8 +64,6 @@ public class Player_Movement : NetworkBehaviour
             float xRot = Input.GetAxisRaw("Mouse Y");
             Vector3 cameraRotation = new Vector3(xRot, 0, 0) * mouseSensitivityY;
             rotateCamera(cameraRotation);
-
-            Debug.Log(cam.transform.localEulerAngles.x);
 
             //gestion des animations
             AnimationsManagement();
@@ -122,7 +120,7 @@ public class Player_Movement : NetworkBehaviour
         }
     }
 
-        private void AnimationsManagement()
+    private void AnimationsManagement()
     {
         if (Input.GetKey(KeyCode.W))
         {
